@@ -10,34 +10,39 @@ Some key that the system have to answer:
 
 # Step-by-Step Guide
 
-## Set Up a Camunda 8 SaaS Environment
+## 1. Set Up a Camunda 8 SaaS Environment
 
 
 Create or use an existing Camunda 8 SaaS account. 
 
-Go to camunda.com and click on the `Try free` button.
+1.1. Go to camunda.com and click on the `Try free` button.
 
 ![Camunda8Saas_CreateFreeSaaS.png](images/camunda8saas/Camunda8Saas_CreateFreeSaaS.png)
 
-Create your account
+1.2. Create your account
+
 ![Camunda8Saas_CreateYourAccount.png](images/camunda8saas/Camunda8Saas_CreateYourAccount.png)
 
-Complete the different steps.
+1.3. Complete the different steps.
 
-Choose the Camunda SaaS Trial
+1.4. Choose the Camunda SaaS Trial
 ![Camunda8Saas_CamundaSaasTrial.png](images/camunda8saas/Camunda8Saas_CamundaSaasTrial.png)
 
 The SaaS environment is ready.
 
-Create a Cluster. Select `Cluster` then `Create new cluster`
+1.5. Check if the AI is enabled
+![Enabled AI](images/camunda8saas/Camunda8Saas_EnableAI.png)
+
+1.6. Create a Cluster. Select `Cluster` then `Create new cluster`
 ![Camunda8Saas_CreateACluster.png](images/camunda8saas/Camunda8Saas_CreateACluster.png)
 
-Give a name (`ClaimManagement`), select a Trial cluster. 
-The Camunda 8.7 or upper must be choose for this workshop.
+1.7 Give a name (`ClaimManagement`), select a Trial cluster.
+
+1.8 The Camunda 8.7 or upper must be choosen for this workshop.
 
 ![Camunda8Saas_ClaimManagementCluster.png](images/camunda8saas/Camunda8Saas_ClaimManagementCluster.png)
 
-## Build the Process
+## 2. Build the Process
 
 During this step, we will use AI Copilot to build the process incrementally.
 
@@ -97,8 +102,24 @@ The result of the DMN table is `status`. It can store three value:
 * `verify`
 * `rejected`
 
-The gateway after will redirect accordind the status
+Inputs are
+
+| Input         | Expression   |
+|---------------|--------------|
+| Vehicule Type | vehiculeType |
+| Estimate Cost | estimateCost |
+| Coverage      | coverage     |
+
+Output are
+
+| Output  | Expression           |
+|---------|----------------------|
+| Status  | statusReimbursement  | 
+
+The gateway after will redirect according the status
 ![Form_SubmitApplication.png](images/form/Form_SubmitApplication.png)
+
+
 
 ## Build the Submission Form
 
@@ -122,7 +143,7 @@ The contract number, available in the URL parameter 'contractNo', should be disp
 The result is something like
 ![Form_SubmitApplicationForm.png](images/form/Form_SubmitApplicationForm.png)
 
-Check fields are correctly set
+Check fields and widget are correctly set
 
 | Field           | key         |
 |-----------------|-------------|
@@ -168,7 +189,8 @@ Check fields are correctly set
 
 ## Link forms in the process
 
-Open again the process, and link the form `claimSubmission` on the start event
+Open again the process, and link the form `claimSubmission` on the start event. To do that, click on the start event, 
+then on the link button and select the ClaimSubmission form.
 ![Process_RegisterFormClaimSubmission.png](images/process/Process_RegisterFormClaimSubmission.png)
 
 Link the `ClaimVerification` form in the CheckClaim user task
@@ -181,6 +203,10 @@ Create a DMN table in the collection
 
 Give `CheckClaimCost` for the ID
 ![DMN_giveID.png](images/dmn/DMN_giveID.png)
+
+Change the DMN name
+![DMN Name.png](images/dmn/DMN_ChangeName.png)
+
 
 Double-click on the table.
 Create these inputs
@@ -208,13 +234,45 @@ Open again the process, and link the table in the process
 
 ## Create an Account on Mistral
 
+Go to the home page of Mistral at https://mistral.ai/en
 
-To be coordinated with William.
+![Mistral_HomePage.png](images/mistral/Mistral_HomePage.png)
 
-## Integrate Mistral AI with the Process
+Create an account, and choose a plan
+![Mistral_ChoosePlan.png](images/mistral/Mistral_ChoosePlan.png)
+
+Create a workspace. Choose the `solo creator` team
+![Mistral_CreateWorkspace.png](images/mistral/Mistral_CreateWorkspace.png)
+
+You can access the workspace
+![Mistral_Workspace.png](images/mistral/Mistral_Workspace.png)
+
+Create a APIkey
+![Mistral_APIKey.png](images/mistral/Mistral_APIKey.png)
+
+In the list of key, copy the value of the key now
+![Mistral_APIKeyList.png](images/mistral/Mistral_APIKeyList.png)
 
 
-To be coordinated with William.
+## Configure the Mistral connector
+
+In the process, access the connector properties
+
+Update the parameters
+
+| parameter        | value                                                                                            |
+|------------------|--------------------------------------------------------------------------------------------------|
+| Mistral Server   | "https://api.mistral.ai/"                                                                        |
+| Bearer Token     | Copy the API key here                                                                            |
+| Operation        | Vision (Simple )                                                                                 |
+| model            | pixtral-large-latest                                                                             |
+| message          | "analyse the picture and give me a json output with vehicule type and estimate amount of damage" | 
+| image URL        | TBD                                                                                              |
+| Response Format  | JSON Object                                                                                      |
+
+
+To see the different model, you can follow the link
+![Mistral_ListOfModel.png](images/mistral/Mistral_ListOfModel.png)
 
 ## Deploy the Process
 
@@ -227,3 +285,13 @@ Provide a collection of test images to verify the workflow and AI functionality.
 # Conclusion
 
 By following these steps, you will successfully implement an AI-powered claims processing system in Camunda 8.
+
+
+
+
+## Create a S3 bucket
+
+Add a 
+![img_6.png](img_6.png)
+
+https://i.ibb.co/5WpHyXjh/car2.jpg
