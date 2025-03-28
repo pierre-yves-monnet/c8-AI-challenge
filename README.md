@@ -280,13 +280,13 @@ Go to https://aws.amazon.com/ and create an account.
 6.13 Select the "Third party service" key. 
 It's going to give you a warning about using ROLES instead of keys, but that is more complicated than we want to get into for the workshop
 Click on Next
-![User key type.png](images/AWSS3/S3_UserkeyType.png)
+![User key type.png](images/AWSS3/S3_UserKeyType.png)
 
 6.14 Give a description tag, and click on `Create access key.`
 ![Create access key.png](images/AWSS3/S3_CreateAccessKeyTag.png)
 
 6.15 Copy the access key
-![Access Key Code.png](images/AWSS3/S3_AccesskeyCode.png)
+![Access Key Code.png](images/AWSS3/S3_UserAccessKeyCode.png)
 
 6.16 On the Search bar, type `S3` and select the `S3` service. A sub-section appears, and select `Buckets.`
 ![S3 Service.png](images/AWSS3/S3_S3Service.png)
@@ -310,7 +310,7 @@ Attention: The bucket's name must be unique; choose your name.
 ![Edit Permission.png](images/AWSS3/S3_BucketEditPermission.png)
 
 6.23 Give this JSON
-````json
+````
 {
   "Version": "2008-10-17",
   "Statement": [
@@ -465,7 +465,7 @@ Outputs are
 | result           | See JSON below      |                     
 
 
-````json
+````
 {
   qualifyDamage: response.body.choices[1].message.content,
   mistral: {
