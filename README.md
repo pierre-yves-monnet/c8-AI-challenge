@@ -3,7 +3,6 @@
 An insurance company needs to estimate the cost of vehicle damage.
 The insurer submits an image of the damaged vehicle, and the system initially qualifies the severity of the damage.
 
-
 Some keys that the system has to answer:
 * What type of vehicle is it? (Car, Boat, or another category?)
 * Is the damage minor (e.g., a small dent) or severe?
